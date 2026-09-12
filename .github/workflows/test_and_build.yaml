@@ -40,4 +40,4 @@ jobs:
       uses: docker/build-push-action@v7
       with:
             push: true
-            tags: ghcr.io/INGENIERO-JUAN/CICD/:latest
+            tags: ghcr.io/ingeniero-juan/cicd:latest
