@@ -16,13 +16,13 @@ flowchart TD
     E --> F["📦 GitHub Actions: CD (build_and_push a GHCR)"]
     F --> G["🌐 Despliegue Automático (Render / Webhook)"]
     
-    style A fill:#e1f5fe,stroke:#03a9f4,stroke-width:2px
-    style B fill:#fff9c4,stroke:#fbc02d,stroke-width:2px
-    style C fill:#c8e6c9,stroke:#4caf50,stroke-width:2px
-    style D fill:#ffe0b2,stroke:#ff9800,stroke-width:2px
-    style E fill:#d1c4e9,stroke:#673ab7,stroke-width:2px
-    style F fill:#c8e6c9,stroke:#4caf50,stroke-width:2px
-    style G fill:#b2dfdb,stroke:#009688,stroke-width:2px
+    style A fill:#e1f5fe,stroke:#03a9f4,stroke-width:2px,color:#000000
+    style B fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,color:#000000
+    style C fill:#c8e6c9,stroke:#4caf50,stroke-width:2px,color:#000000
+    style D fill:#ffe0b2,stroke:#ff9800,stroke-width:2px,color:#000000
+    style E fill:#d1c4e9,stroke:#673ab7,stroke-width:2px,color:#000000
+    style F fill:#c8e6c9,stroke:#4caf50,stroke-width:2px,color:#000000
+    style G fill:#b2dfdb,stroke:#009688,stroke-width:2px,color:#000000
 ```
 
 ### 1.2 Mapa de Calor de Fricciones y Cuellos de Botella
