@@ -163,6 +163,8 @@ Tomando las 3 historias reales creadas en nuestro repositorio:
 
 ## 5. Taller 4: Backlog y Planificación de Sprints con Entregas Incrementales
 
+> **Artefacto vivo del equipo:** [`PRODUCT_BACKLOG.md`](PRODUCT_BACKLOG.md) — product backlog priorizado, sprint backlog e historias re-sliceadas alineadas con los issues #2–#4.
+
 ### 5.1 Diagnóstico de Salud del Backlog (Semáforo TBD)
 Evaluación de las historias de usuario bajo los 4 criterios de viabilidad para Trunk-Based Development:
 
