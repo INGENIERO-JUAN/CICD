@@ -158,3 +158,92 @@ Tomando las 3 historias reales creadas en nuestro repositorio:
 1. **ConfigCat Integration:** Vincular el SDK de ConfigCat en Python (`configcat-client`) para validar las variables booleanas de las flags en tiempo de ejecución.
 2. **CD Trigger hacia Render:** Conectar el webhook de despliegue de Render para que consuma automáticamente la imagen `ghcr.io/ingeniero-juan/cicd:latest` tan pronto termine el job `build_and_push`.
 3. **Métricas DORA:** Comenzar a medir *Deployment Frequency* (Frecuencia de despliegues) y *Lead Time for Changes* (Tiempo desde el primer commit hasta llegar a producción).
+
+---
+
+## 5. Taller 4: Backlog y Planificación de Sprints con Entregas Incrementales
+
+### 5.1 Diagnóstico de Salud del Backlog (Semáforo TBD)
+Evaluación de las historias de usuario bajo los 4 criterios de viabilidad para Trunk-Based Development:
+
+| Historia / Issue | Tamaño (≤ 1 día) | Verticalidad (Valor solo) | Feature Toggle Definido | Validación en Producción | Clasificación TBD |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Issue #2:** `feat: método resta() con toggle apagado` | 🟢 Sí (Horas) | 🟢 Sí (Lógica base) | 🟢 Sí (`toggle_resta = 0%`) | 🟢 Sí (pytest + CI) | 🟢 **Lista para TBD** |
+| **Issue #3:** `feat: exponer resta() en frontend (rollout 10%)` | 🟢 Sí (1 componente) | 🟢 Sí (UX/UI real) | 🟢 Sí (Rollout 10% ConfigCat) | 🟢 Sí (Pruebas en navegador) | 🟢 **Lista para TBD** |
+| **Issue #4:** `feat: multiplicación, división e historial + 100%` | 🔴 **No** (Monolito) | 🟡 Parcial (Agrupado) | 🟡 Impreciso (Múltiples toggles) | 🟡 Alto riesgo simultáneo | 🔴 **Necesita Re-sliceado** |
+
+---
+
+### 5.2 Técnicas de Sliceado Vertical y Re-sliceado de la Historia #4
+Para cumplir con TBD, la **Historia #4** se descompone en **3 incrementos verticales atómicos**:
+
+#### 🧩 Incremento 1: Método `multiplicacion()` detrás de Toggle
+* **Descripción:** Implementar la multiplicación de enteros en `Calculator` con test unitario en CI.
+* **¿Se puede integrar en ≤ 1 día?:** **Sí** (~2 horas).
+* **¿Necesita Feature Toggle?:** **Sí**, `toggle_multiplicacion = 0%`.
+* **Acceptance Criteria en Producción:**
+  1. `Calculator().multiplicar(a, b)` retorna el producto aritmético.
+  2. Pruebas de `pytest` aprobadas en GitHub Actions sin advertencias de `ruff`.
+  3. Desplegado en `main` sin interferir con operaciones existentes.
+
+#### 🧩 Incremento 2: Método `division()` con Manejo de Excepciones
+* **Descripción:** Implementar división controlando división por cero (`ZeroDivisionError`) y pruebas de casos borde.
+* **¿Se puede integrar en ≤ 1 día?:** **Sí** (~3 horas).
+* **¿Necesita Feature Toggle?:** **Sí**, `toggle_division = 0%`.
+* **Acceptance Criteria en Producción:**
+  1. `Calculator().dividir(10, 2)` retorna `5`.
+  2. `Calculator().dividir(5, 0)` arroja `ValueError("No se puede dividir por cero")`.
+  3. Cobertura de casos borde verificada en CI.
+
+#### 🧩 Incremento 3: Módulo de Historial en Memoria y Activación al 100%
+* **Descripción:** Registrar las últimas operaciones en una estructura en memoria (`historial()`) y elevar el toggle al 100%.
+* **¿Se puede integrar en ≤ 1 día?:** **Sí** (~4 horas).
+* **¿Necesita Feature Toggle?:** `toggle_calculadora_completa` elevado de 10% a 100%.
+* **Acceptance Criteria en Producción:**
+  1. Cada cálculo exitoso se indexa en la lista de historial.
+  2. Rollout al 100% en producción sin degradación de rendimiento.
+  3. Plan de retiro del toggle en el siguiente sprint para evitar deuda técnica.
+
+---
+
+### 5.3 Planificación de Sprint Orientada a Flujo
+
+#### Sprint Goal Oficial
+> *"Al final del sprint los usuarios podrán realizar sumas y restas interactivas en producción, aunque las operaciones avanzadas (multiplicación y división) todavía estén protegidas detrás de Feature Toggles."*
+
+#### Plan de Integración Diaria a `main`
+```text
+┌─────────────────────────────────┬─────────────────────────────────┬─────────────────────────────────┐
+│            DÍA 1 - 2            │            DÍA 3 - 4            │             DÍA 5+              │
+├─────────────────────────────────┼─────────────────────────────────┼─────────────────────────────────┤
+│ • PR #6: Método resta()         │ • Incremento 1: Método          │ • Incremento 3: Historial       │
+│   backend con toggle (0%)       │   multiplicación() (0%)         │   de operaciones en memoria     │
+│ • Issue #3: Conexión frontend   │ • Incremento 2: Método división │ • Elevación gradual de toggles  │
+│   y rollout inicial (10%)       │   con manejo de errores (0%)    │   al 100% de la base            │
+│ • Validación de CI en PR        │ • Code Review en < 2 horas      │ • Retiro de código obsoleto     │
+└─────────────────────────────────┴─────────────────────────────────┴─────────────────────────────────┘
+```
+
+#### Capacidad Realista (Buffer de Flujo)
+* **60%:** Escritura de código e incrementos pequeños.
+* **20%:** Code Review ágil y desbloqueo de PRs de compañeros.
+* **10%:** Monitoreo de pipelines de CI/CD y despliegues a GHCR / Render.
+* **10%:** Buffer de contingencia (*Stop the Line* ante fallas en `main`).
+
+---
+
+### 5.4 Definition of Ready (DoR) Oficial para TBD
+Una historia **solo puede ser admitida en el Sprint Backlog** si cumple la totalidad de estos requisitos:
+* [x] **Tamaño atómico:** Diseñada para integrarse en **≤ 1 día de desarrollo**.
+* [x] **Criterios de Aceptación verificables en producción:** Especifican cómo validar el valor una vez desplegado.
+* [x] **Estrategia de Feature Toggle definida:** Indica nombre exacto del toggle y su porcentaje inicial (0%).
+* [x] **Cero bloqueos externos:** No depende de servicios ni de ramas no integradas.
+* [x] **Estrategia de pruebas automatizadas acordada:** El desarrollador define los casos de prueba unitaria antes de codificar.
+
+---
+
+### 5.5 Acuerdos de Cierre del Taller 4
+1. **Acción 1:** Toda historia nueva debe ser evaluada con los 4 criterios de salud TBD antes de la reunión de Planning.
+2. **Acción 2:** Ningún Pull Request superará las 250 líneas de código para garantizar revisiones en menos de 2 horas.
+3. **¿Qué cambia en nuestra próxima Planning?:** Dejamos de estimar puntos de historia abstractos para enfocarnos en el **calendario de integraciones diarias a `main`** desde el primer día del Sprint.
+
