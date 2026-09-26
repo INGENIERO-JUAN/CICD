@@ -1,5 +1,6 @@
-
-
 class Calculator:
-    def sum (self, a:int, b: int) -> int :
-        return a+b
+    def suma(self, a: int, b: int) -> int:
+        return a + b
+
+    def resta(self, a: int, b: int) -> int:
+        return a - b
