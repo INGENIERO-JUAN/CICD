@@ -1,0 +1,27 @@
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 28rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+input {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+#result {
+  margin-top: 1.5rem;
+  font-weight: 600;
+}

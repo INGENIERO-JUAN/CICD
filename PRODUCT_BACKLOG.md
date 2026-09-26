@@ -32,13 +32,14 @@ Documento vivo del **Product Backlog** adaptado a Trunk-Based Development: histo
 | :---: | :---: | :---: | :--- | :---: | :--- |
 | PB-001 | — | — | `suma()` en Calculator (línea base) | 🟢 | Hecho |
 | PB-002 | 1 | [#2](https://github.com/INGENIERO-JUAN/CICD/issues/2) | Método `resta()` con toggle apagado (0%) | 🟢 | En progreso |
-| PB-003 | 2 | [#3](https://github.com/INGENIERO-JUAN/CICD/issues/3) | Exponer `resta()` en frontend (rollout 10%) | 🟢 | Listo |
-| PB-004a | 3 | [#4](https://github.com/INGENIERO-JUAN/CICD/issues/4) | Método `multiplicar()` con toggle 0% | 🟢 | Re-sliceado |
-| PB-004b | 4 | [#4](https://github.com/INGENIERO-JUAN/CICD/issues/4) | Método `dividir()` con manejo de errores (toggle 0%) | 🟢 | Re-sliceado |
-| PB-004c | 5 | [#4](https://github.com/INGENIERO-JUAN/CICD/issues/4) | Historial en memoria + elevación toggles al 100% | 🟢 | Re-sliceado |
-| PB-005 | 6 | — | Integración ConfigCat SDK en Python | 🟡 | Backlog |
-| PB-006 | 7 | — | Webhook CD hacia Render (post GHCR) | 🟡 | Backlog |
-| PB-007 | 8 | — | Métricas DORA (deployment frequency, lead time) | 🟡 | Backlog |
+| PB-003 | 2 | [#3](https://github.com/INGENIERO-JUAN/CICD/issues/3) | Exponer `resta()` en frontend (rollout 10%) | 🟢 | En progreso |
+| PB-004 | — | [#4](https://github.com/INGENIERO-JUAN/CICD/issues/4) | Epic: operaciones avanzadas + 100% | 🟢 | Re-sliceado |
+| PB-004a | 3 | [#9](https://github.com/INGENIERO-JUAN/CICD/issues/9) | Método `multiplicar()` con toggle 0% | 🟢 | Listo |
+| PB-004b | 4 | [#10](https://github.com/INGENIERO-JUAN/CICD/issues/10) | Método `dividir()` con manejo de errores (toggle 0%) | 🟢 | Listo |
+| PB-004c | 5 | [#11](https://github.com/INGENIERO-JUAN/CICD/issues/11) | Historial en memoria + elevación toggles al 100% | 🟢 | Listo |
+| PB-005 | 6 | [#12](https://github.com/INGENIERO-JUAN/CICD/issues/12) | Integración ConfigCat SDK en Python | 🟢 | En progreso |
+| PB-006 | 7 | [#13](https://github.com/INGENIERO-JUAN/CICD/issues/13) | Webhook CD hacia Render (post GHCR) | 🟡 | Backlog |
+| PB-007 | 8 | [#14](https://github.com/INGENIERO-JUAN/CICD/issues/14) | Métricas DORA (deployment frequency, lead time) | 🟡 | Backlog |
 
 ---
 
@@ -49,89 +50,74 @@ Documento vivo del **Product Backlog** adaptado a Trunk-Based Development: histo
 - **Como** usuario, **quiero** sumar dos enteros, **para** usar la calculadora mínima desplegable.
 - **AC:** `Calculator().suma(a, b)`; tests en CI; en `main`.
 - **Toggle:** N/A (funcionalidad base).
-- **Notas:** Implementado en `src/main.py` y `src/tests.py`.
+- **Notas:** API `GET /api/suma` y UI en `src/static/`.
 
 ---
 
 ### PB-002 — `resta()` backend detrás del toggle
 
-- **Issue:** [#2](https://github.com/INGENIERO-JUAN/CICD/issues/2)
+- **Issue:** [#2](https://github.com/INGENIERO-JUAN/CICD/issues/2) — Project: **In Progress**
 - **Como** desarrollador, **quiero** implementar `resta()` con feature flag apagado, **para** integrar la lógica a `main` sin exponerla aún.
 - **AC en producción:**
   1. Método `resta(a, b)` en `src/main.py`.
   2. Test unitario en `src/tests.py`; job `test` en verde (ruff + pytest).
-  3. Flag `feature-resta` en ConfigCat en **0%**.
+  3. Flag `feature-resta` en ConfigCat en **0%** (dashboard + `CONFIGCAT_SDK_KEY` en Render).
 - **Toggle:** `feature-resta` → rollout **0%**.
-- **Semáforo TBD:** tamaño 🟢 | verticalidad 🟢 | toggle 🟢 | validación prod 🟢 → **Lista para TBD**.
-- **Avance:** método y test presentes en repo; pendiente flag ConfigCat y cierre de issue.
+- **Avance:** lógica, API `/api/resta` (403 sin flag) y SDK en `src/feature_flags.py`. **Pendiente:** crear flag en ConfigCat y cerrar issue.
 
 ---
 
 ### PB-003 — Frontend resta con rollout interno
 
-- **Issue:** [#3](https://github.com/INGENIERO-JUAN/CICD/issues/3)
+- **Issue:** [#3](https://github.com/INGENIERO-JUAN/CICD/issues/3) — bloqueada por #2 hasta toggle operativo; UI base en repo.
 - **Como** Product Owner, **quiero** la resta visible solo al 10% de usuarios, **para** validar UX y telemetría en producción.
 - **AC en producción:**
-  1. UI conectada al endpoint / lógica de resta.
+  1. UI en `src/static/index.html` + `script.js` conectada a `/api/resta`.
   2. Regla de segmentación **10%** en ConfigCat.
   3. Sin errores en consola ni alertas en producción.
 - **Toggle:** `feature-resta` → rollout **10%** (segmento interno).
-- **Semáforo TBD:** 🟢 **Lista para TBD**.
-- **Dependencia:** PB-002 integrado en `main` con toggle operativo.
+- **Avance:** botón resta oculto hasta `feature_resta` en `/api/flags`. **Pendiente:** rollout 10% en ConfigCat.
 
 ---
 
-### PB-004 — Epic original (re-sliceada)
+### PB-004 — Epic (#4) y sub-issues
 
-- **Issue:** [#4](https://github.com/INGENIERO-JUAN/CICD/issues/4) — monolito 🔴 **Necesita re-sliceado** (ver playbook §5.1).
-- Se trabaja como tres incrementos verticales (PB-004a → PB-004c).
+- **Epic:** [#4](https://github.com/INGENIERO-JUAN/CICD/issues/4) con sub-issues [#9](https://github.com/INGENIERO-JUAN/CICD/issues/9), [#10](https://github.com/INGENIERO-JUAN/CICD/issues/10), [#11](https://github.com/INGENIERO-JUAN/CICD/issues/11).
+- Cadena: #10 bloqueada por #9; #11 bloqueada por #10.
 
-#### PB-004a — Multiplicación
+#### PB-004a — [#9](https://github.com/INGENIERO-JUAN/CICD/issues/9) Multiplicación
 
-- **Como** desarrollador, **quiero** `multiplicar(a, b)` detrás de toggle 0%, **para** integrar sin activar en UI.
-- **AC:** producto aritmético correcto; pytest + ruff en CI; desplegado en `main` sin romper operaciones existentes.
 - **Toggle:** `toggle_multiplicacion` → **0%**.
-- **Estimación TBD:** ~2 h | **≤ 1 día:** sí.
 
-#### PB-004b — División con casos borde
+#### PB-004b — [#10](https://github.com/INGENIERO-JUAN/CICD/issues/10) División
 
-- **Como** desarrollador, **quiero** `dividir(a, b)` con control de división por cero, **para** evitar fallos en producción.
-- **AC:** `dividir(10, 2) == 5`; `dividir(5, 0)` → `ValueError("No se puede dividir por cero")`; casos borde en CI.
 - **Toggle:** `toggle_division` → **0%**.
-- **Estimación TBD:** ~3 h | **≤ 1 día:** sí.
 
-#### PB-004c — Historial y lanzamiento 100%
+#### PB-004c — [#11](https://github.com/INGENIERO-JUAN/CICD/issues/11) Historial y 100%
 
-- **Como** usuario final, **quiero** historial de operaciones y calculadora completa estable, **para** usar todas las funciones validadas.
-- **AC:** historial en memoria por operación exitosa; toggles al **100%** sin degradación; plan de retiro de toggles post-estabilización.
 - **Toggle:** `toggle_calculadora_completa` (10% → **100%**).
-- **Estimación TBD:** ~4 h | **≤ 1 día:** sí.
 
 ---
 
-### PB-005 a PB-007 — Infraestructura y métricas
+### PB-005 a PB-007 — Infraestructura
 
-Items de la hoja de ruta (playbook §4.5):
-
-| ID | Descripción | Valor |
-| :--- | :--- | :--- |
-| PB-005 | SDK `configcat-client` en runtime Python | Desacoplar despliegue de activación |
-| PB-006 | Webhook Render tras `build_and_push` | CD end-to-end |
-| PB-007 | Medición DORA | Retrospective basada en datos |
+| ID | Issue | Descripción | Estado |
+| :--- | :--- | :--- | :--- |
+| PB-005 | [#12](https://github.com/INGENIERO-JUAN/CICD/issues/12) | `configcat-client`, módulo `feature_flags.py`, var `CONFIGCAT_SDK_KEY` | Código en repo; cerrar al validar en prod |
+| PB-006 | [#13](https://github.com/INGENIERO-JUAN/CICD/issues/13) | Webhook Render tras `build_and_push` | Backlog |
+| PB-007 | [#14](https://github.com/INGENIERO-JUAN/CICD/issues/14) | Métricas DORA | Backlog |
 
 ---
 
 ## Sprint Backlog — Sprint 1 (flujo continuo)
 
-Integraciones planificadas hacia `main` (no paquete cerrado de 2 semanas):
-
 | Orden | Item | Entregable esperado | Día orientativo |
 | :---: | :--- | :--- | :---: |
 | 1 | PB-002 | PR: `resta()` + tests + ConfigCat 0% | 1–2 |
 | 2 | PB-003 | PR: UI resta + rollout 10% | 2–3 |
-| 3 | PB-004a | PR: `multiplicar()` + toggle 0% | 3–4 |
-| 4 | PB-004b | PR: `dividir()` + toggle 0% | 4 |
-| 5 | PB-004c | PR: historial + toggles 100% | 5+ |
+| 3 | PB-004a (#9) | PR: `multiplicar()` + toggle 0% | 3–4 |
+| 4 | PB-004b (#10) | PR: `dividir()` + toggle 0% | 4 |
+| 5 | PB-004c (#11) | PR: historial + toggles 100% | 5+ |
 
 **Capacidad (buffer de flujo):** 60% código · 20% review · 10% CI/CD · 10% contingencia (*stop the line*).
 
@@ -153,4 +139,4 @@ Un ítem entra al Sprint Backlog solo si:
 
 - Tablero Miro / taller: [`miro_board.html`](miro_board.html)
 - Reglamento del equipo: [`SCRUM_TBD_PLAYBOOK.md`](SCRUM_TBD_PLAYBOOK.md)
-- GitHub Project: *@INGENIERO-JUAN's TBD Lab - Sprint 1* (issues #2–#4 en columna Todo)
+- GitHub Project: [@INGENIERO-JUAN's TBD Lab - Sprint 1](https://github.com/users/INGENIERO-JUAN/projects/1) — issues #2–#14; #2 **In Progress**; epic #4 con sub-issues #9–#11

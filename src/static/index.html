@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora CICD</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Calculadora CICD</h1>
+      <form id="calc-form">
+        <label>
+          A
+          <input type="number" id="a" value="2" required />
+        </label>
+        <label>
+          B
+          <input type="number" id="b" value="2" required />
+        </label>
+        <div class="actions">
+          <button type="button" data-op="suma">Sumar</button>
+          <button type="button" data-op="resta" id="btn-resta" hidden>Restar</button>
+        </div>
+      </form>
+      <p id="result" aria-live="polite"></p>
+    </main>
+    <script src="/static/script.js"></script>
+  </body>
+</html>

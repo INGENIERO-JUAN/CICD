@@ -1,2 +1,4 @@
 Pytest==8.3.4
 ruff==0.8.1
+Flask==3.1.0
+configcat-client==9.0.2
