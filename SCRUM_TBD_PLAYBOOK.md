@@ -251,7 +251,8 @@ Una historia **solo puede ser admitida en el Sprint Backlog** si cumple la total
 
 ---
 
-## 6. Taller 3: CI/CD, Automatización de Pruebas y Cierre de Pendientes (Render + ConfigCat + DoD Final)
+## 6. Taller 3 (Taller 5 General): CI/CD, Automatización de Pruebas y Cierre de Pendientes (Render + ConfigCat + DoD Final)
+*Correspondencia en la guía académica: Taller 3 del Módulo = Taller 5 General.*
 
 ### 6.1 Diagnóstico del Pipeline Actual (Bloque 1)
 ```text
