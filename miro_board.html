@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tablero Miro — Scrum + Trunk-Based Development</title>
+  <title>Tablero Completo Miro — Talleres CI/CD, TBD, Scrum y Despliegue Continuo</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -22,319 +22,366 @@
     }
     .frame-border {
       border: 2px dashed #9ca3af;
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(4px);
     }
+    .tab-btn.active {
+      background-color: #1e293b;
+      color: #ffffff;
+      border-color: #1e293b;
+    }
   </style>
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active', 'bg-slate-900', 'text-white'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.add('bg-white', 'text-gray-700'));
+      
+      document.getElementById(tabId).classList.remove('hidden');
+      document.getElementById('btn-' + tabId).classList.add('active', 'bg-slate-900', 'text-white');
+      document.getElementById('btn-' + tabId).classList.remove('bg-white', 'text-gray-700');
+    }
+  </script>
 </head>
 <body class="p-6 text-gray-800 antialiased min-h-screen">
 
   <!-- Header Barra Miro -->
   <div class="max-w-7xl mx-auto mb-6 flex flex-wrap items-center justify-between bg-white px-6 py-4 rounded-xl shadow-sm border border-gray-200">
     <div class="flex items-center gap-3">
-      <div class="w-9 h-9 bg-yellow-400 rounded-lg flex items-center justify-center font-bold text-gray-900 text-xl shadow-inner">
+      <div class="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center font-bold text-gray-900 text-2xl shadow-inner">
         M
       </div>
       <div>
         <h1 class="text-xl font-bold text-gray-900 flex items-center gap-2">
-          Tablero Miro: Adaptación Scrum a TBD + Despliegue Continuo
-          <span class="text-xs bg-green-100 text-green-800 font-semibold px-2 py-0.5 rounded-full border border-green-300">Live Team Board</span>
+          Tablero Miro: Taller 3 + Taller 4 + Taller 6
+          <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2.5 py-0.5 rounded-full border border-emerald-300">100% Sincronizado</span>
         </h1>
-        <p class="text-xs text-gray-500">Equipo: INGENIERO-JUAN / Repositorio: CICD</p>
+        <p class="text-xs text-gray-500">Equipo: INGENIERO-JUAN / Repositorio: INGENIERO-JUAN/CICD</p>
       </div>
     </div>
     <div class="flex items-center gap-3 text-sm">
-      <span class="px-3 py-1 bg-gray-100 rounded-md text-gray-600 font-medium">Timer: 20 min</span>
+      <a href="https://miro.com/app/board/uXjVHhgoiKQ=/" target="_blank" class="px-4 py-1.5 bg-yellow-500 hover:bg-yellow-600 text-gray-950 rounded-lg font-semibold shadow-sm transition flex items-center gap-1.5">
+        <span>🔗</span> Abrir Tablero en Miro.com
+      </a>
       <button onclick="window.print()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm transition">
         Exportar / Imprimir PDF
       </button>
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto space-y-10">
+  <!-- Selector de Pestañas de Talleres -->
+  <div class="max-w-7xl mx-auto mb-6 flex flex-wrap gap-2">
+    <button id="btn-tab-taller3" onclick="showTab('tab-taller3')" class="tab-btn active px-4 py-2 rounded-lg text-xs font-bold border border-gray-300 bg-slate-900 text-white transition shadow-sm">
+      📦 Taller 3: CI/CD + Render + ConfigCat + DoD Final
+    </button>
+    <button id="btn-tab-taller6" onclick="showTab('tab-taller6')" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition shadow-sm">
+      🚀 Taller 6: Review, Retro & Caso Pagos Express
+    </button>
+    <button id="btn-tab-taller4" onclick="showTab('tab-taller4')" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition shadow-sm">
+      📋 Taller 4: Backlog, Sliceado & DoR
+    </button>
+    <button id="btn-tab-diagnostico" onclick="showTab('tab-diagnostico')" class="tab-btn px-4 py-2 rounded-lg text-xs font-bold border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition shadow-sm">
+      📊 Talleres 1 & 2: Diagnóstico Inicial y Roles
+    </button>
+  </div>
 
-    <!-- FRAME 1: Diagnóstico del Flujo Actual -->
+  <!-- TAB 1: TALLER 3 (PLANTILLAS OFICIALES) -->
+  <div id="tab-taller3" class="tab-content max-w-7xl mx-auto space-y-8">
+    
+    <div class="bg-indigo-900 text-white p-4 rounded-xl shadow-sm flex justify-between items-center">
+      <div>
+        <h2 class="text-base font-bold">Frame Principal: Taller 3 – CI/CD + Render + ConfigCat + DoD Final</h2>
+        <p class="text-xs text-indigo-200">Plantillas de Miro estructuradas por bloques</p>
+      </div>
+      <span class="bg-emerald-500 text-white text-xs px-2.5 py-1 rounded-md font-bold">Fase 1: Cerrada ✅</span>
+    </div>
+
+    <!-- Bloque 1: Diagnóstico del Pipeline Actual -->
     <div class="frame-border rounded-2xl p-6 relative">
-      <div class="absolute -top-3.5 left-6 bg-gray-800 text-white text-xs font-bold px-3 py-1 rounded shadow">
-        FRAME 1: Diagnóstico del Flujo Actual (20 min)
+      <div class="absolute -top-3.5 left-6 bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded shadow">
+        1. Diagnóstico del Pipeline
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-4">
-        
-        <!-- Columna de Flujo (Izquierda) -->
-        <div class="lg:col-span-5 flex flex-col items-center space-y-3">
-          <h2 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-1">Flujo en una sola columna</h2>
-          
-          <div class="w-full bg-blue-50 border-2 border-blue-400 rounded-xl p-3 shadow-sm text-center">
-            <span class="text-xs font-bold text-blue-700">PASO 1</span>
-            <p class="text-sm font-semibold text-gray-900">💻 Commit Local en rama efímera</p>
-            <p class="text-xs text-gray-500">git checkout -b feature/resta-calculator</p>
-          </div>
-          <div class="text-gray-400 font-bold">⬇️</div>
-
-          <div class="w-full bg-amber-50 border-2 border-amber-400 rounded-xl p-3 shadow-sm text-center">
-            <span class="text-xs font-bold text-amber-700">PASO 2</span>
-            <p class="text-sm font-semibold text-gray-900">🔀 Pull Request hacia main</p>
-            <p class="text-xs text-gray-500">gh pr create (PR #6)</p>
-          </div>
-          <div class="text-gray-400 font-bold">⬇️</div>
-
-          <div class="w-full bg-emerald-50 border-2 border-emerald-500 rounded-xl p-3 shadow-sm text-center">
-            <span class="text-xs font-bold text-emerald-700">PASO 3</span>
-            <p class="text-sm font-semibold text-gray-900">🧪 CI Automático: Job 'test'</p>
-            <p class="text-xs text-gray-500">pytest + ruff linter (&lt; 10 segundos)</p>
-          </div>
-          <div class="text-gray-400 font-bold">⬇️</div>
-
-          <div class="w-full bg-amber-50 border-2 border-amber-400 rounded-xl p-3 shadow-sm text-center">
-            <span class="text-xs font-bold text-amber-700">PASO 4</span>
-            <p class="text-sm font-semibold text-gray-900">👀 Code Review / Branch Protection</p>
-            <p class="text-xs text-gray-500">Ruleset activo en main (1 aprobación / bypass)</p>
-          </div>
-          <div class="text-gray-400 font-bold">⬇️</div>
-
-          <div class="w-full bg-purple-50 border-2 border-purple-400 rounded-xl p-3 shadow-sm text-center">
-            <span class="text-xs font-bold text-purple-700">PASO 5</span>
-            <p class="text-sm font-semibold text-gray-900">🚀 Merge a main (Trunk)</p>
-            <p class="text-xs text-gray-500">Fusión confirmada y borrado de rama</p>
-          </div>
-          <div class="text-gray-400 font-bold">⬇️</div>
-
-          <div class="w-full bg-emerald-50 border-2 border-emerald-500 rounded-xl p-3 shadow-sm text-center">
-            <span class="text-xs font-bold text-emerald-700">PASO 6</span>
-            <p class="text-sm font-semibold text-gray-900">📦 CD: Job 'build_and_push'</p>
-            <p class="text-xs text-gray-500">Compila Docker y publica en ghcr.io</p>
-          </div>
-          <div class="text-gray-400 font-bold">⬇️</div>
-
-          <div class="w-full bg-teal-50 border-2 border-teal-400 rounded-xl p-3 shadow-sm text-center">
-            <span class="text-xs font-bold text-teal-700">PASO 7</span>
-            <p class="text-sm font-semibold text-gray-900">🌐 Despliegue en Producción</p>
-            <p class="text-xs text-gray-500">Render Webhook / Feature Flag en ConfigCat</p>
+      <div class="space-y-6 mt-2">
+        <!-- A. Flujo actual horizontal -->
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">A. Flujo actual (Horizontal)</h3>
+          <div class="grid grid-cols-2 md:grid-cols-7 gap-2 text-center text-xs">
+            <div class="bg-blue-50 border border-blue-300 p-2.5 rounded-lg font-bold text-blue-950">Push / PR</div>
+            <div class="bg-emerald-50 border border-emerald-400 p-2.5 rounded-lg font-bold text-emerald-950">CI (tests + lint)</div>
+            <div class="bg-amber-50 border border-amber-300 p-2.5 rounded-lg font-bold text-amber-950">Code Review</div>
+            <div class="bg-purple-50 border border-purple-300 p-2.5 rounded-lg font-bold text-purple-950">Merge a main</div>
+            <div class="bg-emerald-50 border border-emerald-400 p-2.5 rounded-lg font-bold text-emerald-950">Docker ➔ GHCR</div>
+            <div class="bg-teal-50 border border-teal-400 p-2.5 rounded-lg font-bold text-teal-950">Auto-deploy Render</div>
+            <div class="bg-indigo-50 border border-indigo-400 p-2.5 rounded-lg font-bold text-indigo-950">Feature Toggle ConfigCat</div>
           </div>
         </div>
 
-        <!-- Post-its del Semáforo (Derecha) -->
-        <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
-          
-          <div>
-            <h2 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-3">Mapa de Calor (Semáforo de Fricciones)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              
-              <div class="sticky-note bg-emerald-100 border border-emerald-300 rounded-lg p-4 text-emerald-950 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center gap-1 font-bold text-xs text-emerald-700 mb-2">
-                    <span>🟢</span> FUNCIONA BIEN
-                  </div>
-                  <p class="text-xs leading-relaxed font-medium">
-                    CI automático: pytest y ruff validan cada commit en menos de 10s en GitHub Actions.
-                  </p>
-                </div>
-                <div class="mt-4 pt-2 border-t border-emerald-200 text-[10px] text-emerald-600 font-bold">Evidencia: PR #5 y #6</div>
-              </div>
-
-              <div class="sticky-note bg-amber-100 border border-amber-300 rounded-lg p-4 text-amber-950 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center gap-1 font-bold text-xs text-amber-700 mb-2">
-                    <span>🟡</span> GENERA FRICCIÓN
-                  </div>
-                  <p class="text-xs leading-relaxed font-medium">
-                    Tiempos de espera por revisión de PR si los compañeros están ocupados.
-                  </p>
-                </div>
-                <div class="mt-4 pt-2 border-t border-amber-200 text-[10px] text-amber-600 font-bold">Solución: PRs pequeños</div>
-              </div>
-
-              <div class="sticky-note bg-rose-100 border border-rose-300 rounded-lg p-4 text-rose-950 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center gap-1 font-bold text-xs text-rose-700 mb-2">
-                    <span>🔴</span> ROMPE O DA MIEDO
-                  </div>
-                  <p class="text-xs leading-relaxed font-medium">
-                    Miedo a integrar cambios incompletos a main que rompan producción.
-                  </p>
-                </div>
-                <div class="mt-4 pt-2 border-t border-rose-200 text-[10px] text-rose-600 font-bold">Solución: Feature Toggles</div>
-              </div>
-
+        <!-- B. Semáforo del Pipeline -->
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">B. Semáforo del Pipeline (3 Columnas)</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="sticky-note bg-emerald-100 border border-emerald-300 p-4 rounded-lg">
+              <span class="font-bold text-xs text-emerald-800 block mb-1">🟢 Ya funciona bien</span>
+              <p class="text-xs text-emerald-950 leading-relaxed">
+                • CI ultrarrápido (&lt; 45s) en GitHub Actions.<br>
+                • Imagen Docker inmutable en GHCR con cada push a main.<br>
+                • Tests automáticos en cada PR.
+              </p>
+            </div>
+            <div class="sticky-note bg-amber-100 border border-amber-300 p-4 rounded-lg">
+              <span class="font-bold text-xs text-amber-800 block mb-1">🟡 Parcial / Manual</span>
+              <p class="text-xs text-amber-950 leading-relaxed">
+                • Configuración de webhook de Render para CD.<br>
+                • Activación de toggles en el panel de ConfigCat.<br>
+                • Observabilidad de logs en producción.
+              </p>
+            </div>
+            <div class="sticky-note bg-rose-100 border border-rose-300 p-4 rounded-lg">
+              <span class="font-bold text-xs text-rose-800 block mb-1">🔴 Falta completamente / Mitigado</span>
+              <p class="text-xs text-rose-950 leading-relaxed">
+                • Miedo a romper main mitigado con Feature Flags al 0%.<br>
+                • Pruebas de integración E2E automatizadas.<br>
+                • Telemetría de métricas DORA en tiempo real.
+              </p>
             </div>
           </div>
-
-          <!-- Preguntas Rápidas Resueltas -->
-          <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
-            <h3 class="text-xs font-bold text-gray-700 uppercase tracking-wide mb-3">Preguntas Rápidas de Diagnóstico</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-2xs">
-                <span class="text-xs text-gray-500 font-semibold block">¿Vida de una rama?</span>
-                <span class="text-sm font-bold text-blue-600">Menos de 24 horas</span>
-                <p class="text-[11px] text-gray-500 mt-1">Short-lived branches; se borra inmediatamente al mergear.</p>
-              </div>
-              <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-2xs">
-                <span class="text-xs text-gray-500 font-semibold block">¿Frecuencia a main?</span>
-                <span class="text-sm font-bold text-emerald-600">Diariamente (1+ veces/día)</span>
-                <p class="text-[11px] text-gray-500 mt-1">Commits atómicos y micro-integraciones continuas.</p>
-              </div>
-              <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-2xs">
-                <span class="text-xs text-gray-500 font-semibold block">¿DoD incluye main?</span>
-                <span class="text-sm font-bold text-purple-600">Sí, 100% desplegable</span>
-                <p class="text-[11px] text-gray-500 mt-1">Con imagen Docker generada en GHCR y tests en verde.</p>
-              </div>
-            </div>
-          </div>
-
         </div>
 
+        <!-- C. Preguntas Clave -->
+        <div class="bg-gray-50 border border-gray-200 p-4 rounded-xl">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-700 mb-3">C. Preguntas Clave (Sticky Notes)</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+            <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-2xs">
+              <span class="font-semibold text-gray-500 block mb-1">¿Cuánto tarda el CI?</span>
+              <span class="font-bold text-blue-600">35 a 45 segundos</span>
+              <p class="text-[11px] text-gray-500 mt-1">Python 3.11 + pytest + ruff en GitHub Actions.</p>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-2xs">
+              <span class="font-semibold text-gray-500 block mb-1">¿Qué tan confiable es?</span>
+              <span class="font-bold text-emerald-600">100% Confiable</span>
+              <p class="text-[11px] text-gray-500 mt-1">Cero tests flaky; reproducible en local y CI.</p>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-2xs">
+              <span class="font-semibold text-gray-500 block mb-1">¿Paso manual post-merge?</span>
+              <span class="font-bold text-purple-600">Ninguno (Zero Touch)</span>
+              <p class="text-[11px] text-gray-500 mt-1">CD compila Docker, publica y dispara deploy.</p>
+            </div>
+            <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-2xs">
+              <span class="font-semibold text-gray-500 block mb-1">¿Mayor miedo al desplegar?</span>
+              <span class="font-bold text-rose-600">Romper producción</span>
+              <p class="text-[11px] text-gray-500 mt-1">Eliminado: el código nuevo entra apagado con flags.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- FRAME 2: Roles Adaptados a TBD + CD -->
+    <!-- Bloque 2: Robustez del CI y Pruebas -->
     <div class="frame-border rounded-2xl p-6 relative">
-      <div class="absolute -top-3.5 left-6 bg-gray-800 text-white text-xs font-bold px-3 py-1 rounded shadow">
-        FRAME 2: Roles Adaptados a TBD + Continuous Deployment
+      <div class="absolute -top-3.5 left-6 bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded shadow">
+        2. Robustez del CI y Pruebas
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-        
-        <!-- Product Owner -->
-        <div class="bg-white rounded-xl border border-gray-200 p-4 flex flex-col justify-between shadow-2xs">
-          <div>
-            <div class="flex items-center gap-2 mb-3">
-              <span class="text-2xl">🎯</span>
-              <div>
-                <h3 class="font-bold text-sm text-gray-900">Product Owner</h3>
-                <span class="text-[11px] text-gray-500">Valor + Riesgo + Feature Flags</span>
-              </div>
-            </div>
-            <ul class="text-xs text-gray-600 space-y-2 mb-4 list-disc pl-4">
-              <li>Participa activamente en el <strong>sliceado</strong> de historias en lotes pequeños.</li>
-              <li>Decide la estrategia de lanzamiento con <strong>Feature Toggles</strong> (0% ➔ 10% ➔ 100%).</li>
-              <li>Prueba valor real en producción sin esperar al fin del Sprint.</li>
-            </ul>
-          </div>
-          <div class="sticky-note bg-amber-100 border border-amber-300 rounded-lg p-3 text-xs text-amber-950 font-medium">
-            <span class="font-bold block text-amber-800 text-[10px] uppercase mb-1">Mi compromiso a partir de mañana:</span>
-            "No pediré historias gigantes; validaré criterios de aceptación con Feature Flags en producción antes de la demo."
-          </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
+        <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-2xs">
+          <h4 class="font-bold text-xs uppercase tracking-wide text-gray-600 mb-2">Sección A – Mínimo Viable de Calidad</h4>
+          <ul class="text-xs text-gray-700 space-y-1.5 list-disc pl-4">
+            <li><strong>Tests obligatorios:</strong> `test_sums_2_numbers()`, `test_resta_2_numbers()`, `/api/health`, `/api/flags`.</li>
+            <li><strong>Análisis estático:</strong> `ruff check .` con cero advertencias.</li>
+            <li><strong>Tiempo máximo aceptable de CI:</strong> 1 minuto.</li>
+          </ul>
         </div>
 
-        <!-- Developers -->
-        <div class="bg-white rounded-xl border border-gray-200 p-4 flex flex-col justify-between shadow-2xs">
-          <div>
-            <div class="flex items-center gap-2 mb-3">
-              <span class="text-2xl">💻</span>
-              <div>
-                <h3 class="font-bold text-sm text-gray-900">Developers</h3>
-                <span class="text-[11px] text-gray-500">Ownership de Main y Pipeline</span>
-              </div>
-            </div>
-            <ul class="text-xs text-gray-600 space-y-2 mb-4 list-disc pl-4">
-              <li>Responsabilidad colectiva: <strong>main siempre verde y desplegable</strong>.</li>
-              <li>Commits pequeños y merges diarios a través de Pull Requests.</li>
-              <li>Ocultan código en desarrollo tras flags en vez de aislarse en ramas largas.</li>
-            </ul>
-          </div>
-          <div class="sticky-note bg-emerald-100 border border-emerald-300 rounded-lg p-3 text-xs text-emerald-950 font-medium">
-            <span class="font-bold block text-emerald-800 text-[10px] uppercase mb-1">Mi compromiso a partir de mañana:</span>
-            "No conservaré código local por más de 24 horas; integraré diario con tests automatizados y protegeré main."
-          </div>
+        <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-2xs">
+          <h4 class="font-bold text-xs uppercase tracking-wide text-gray-600 mb-2">Sección B – Mejoras Realizadas Hoy</h4>
+          <ol class="text-xs text-gray-700 space-y-1.5 list-decimal pl-4">
+            <li>Incorporación de suite de tests en `src/tests.py`.</li>
+            <li>Separación estricta de jobs `test` y `build_and_push` en CI.</li>
+            <li>Validación automática de endpoint `/api/health` para Render.</li>
+          </ol>
         </div>
 
-        <!-- Scrum Master -->
-        <div class="bg-white rounded-xl border border-gray-200 p-4 flex flex-col justify-between shadow-2xs">
+        <div class="bg-emerald-50 border border-emerald-300 p-4 rounded-xl shadow-2xs flex flex-col justify-between">
           <div>
-            <div class="flex items-center gap-2 mb-3">
-              <span class="text-2xl">🛡️</span>
-              <div>
-                <h3 class="font-bold text-sm text-gray-900">Scrum Master</h3>
-                <span class="text-[11px] text-gray-500">Disciplina de Integración y Flujo</span>
-              </div>
-            </div>
-            <ul class="text-xs text-gray-600 space-y-2 mb-4 list-disc pl-4">
-              <li>Elimina el miedo a integrar diario y promueve la cultura de confianza.</li>
-              <li>Protege tiempo en el Sprint para mantener y acelerar el pipeline de CI/CD.</li>
-              <li>Remueve bloqueos de Code Review para evitar que las ramas se estanquen.</li>
-            </ul>
+            <h4 class="font-bold text-xs uppercase tracking-wide text-emerald-800 mb-2">Sección C – Acuerdo del Equipo</h4>
+            <p class="text-xs text-emerald-950 font-medium italic">
+              "Si el CI está rojo ➔ se prioriza ponerlo verde antes de seguir con features."
+            </p>
           </div>
-          <div class="sticky-note bg-blue-100 border border-blue-300 rounded-lg p-3 text-xs text-blue-950 font-medium">
-            <span class="font-bold block text-blue-800 text-[10px] uppercase mb-1">Mi compromiso a partir de mañana:</span>
-            "Facilitaré la disciplina de integración diaria y cuidaré que resolver fallos en main sea la prioridad #1 del equipo."
+          <div class="mt-3 text-right">
+            <span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded">¿Acordado? SÍ ✅</span>
           </div>
         </div>
-
       </div>
     </div>
 
-    <!-- FRAME 3: Actividad 3.2 "Traduce tu Realidad" -->
+    <!-- Bloques 3 & 4: Render + ConfigCat -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- Bloque 3: Auto-deploy Render -->
+      <div class="frame-border rounded-2xl p-6 relative">
+        <div class="absolute -top-3.5 left-6 bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded shadow">
+          3. Auto-deploy a Render
+        </div>
+        <div class="space-y-3 mt-2 text-xs">
+          <div class="bg-white p-3 rounded-lg border border-gray-200 space-y-1">
+            <span class="font-bold text-gray-800 block">Checklist de Configuración:</span>
+            <div class="text-gray-600">✅ Repo conectado: `INGENIERO-JUAN/CICD`</div>
+            <div class="text-gray-600">✅ Branch: `main` (Auto-Deploy activo)</div>
+            <div class="text-gray-600">✅ Start: `python src/main.py` (puerto dinámico $PORT)</div>
+            <div class="text-gray-600">✅ Health Check: `/api/health` (HTTP 200)</div>
+          </div>
+          <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 space-y-1">
+            <span class="font-bold text-gray-800 block">Decisiones del Equipo:</span>
+            <p><strong>¿Producción o Staging?:</strong> Directo a Producción protegido con Feature Flags.</p>
+            <p><strong>¿Quién recibe alertas de fallo?:</strong> Notificaciones por webhook al canal del equipo.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloque 4: Feature Toggle ConfigCat -->
+      <div class="frame-border rounded-2xl p-6 relative">
+        <div class="absolute -top-3.5 left-6 bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded shadow">
+          4. Feature Toggle – ConfigCat
+        </div>
+        <div class="space-y-3 mt-2 text-xs">
+          <div class="bg-white p-3 rounded-lg border border-gray-200 space-y-1">
+            <span class="font-bold text-gray-800 block">Configuración del Toggle:</span>
+            <div><strong>Proyecto:</strong> `CICD-Calculator`</div>
+            <div><strong>Nombre del Toggle:</strong> `feature-resta` (`isRestaEnabled`)</div>
+            <div><strong>Estado inicial:</strong> `OFF (0%)` (Historia #2)</div>
+          </div>
+          <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 space-y-1">
+            <span class="font-bold text-gray-800 block">Demostración en Vivo:</span>
+            <p>• <strong>Toggle OFF:</strong> Retorna HTTP 403; resta oculta/deshabilitada.</p>
+            <p>• <strong>Toggle ON:</strong> Retorna HTTP 200 con el cálculo en vivo sin re-desplegar.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bloque 5: DoD Final -->
     <div class="frame-border rounded-2xl p-6 relative">
-      <div class="absolute -top-3.5 left-6 bg-gray-800 text-white text-xs font-bold px-3 py-1 rounded shadow">
-        FRAME 3: Actividad 3.2 "Traduce tu Realidad" (Historias Sliceadas del Repo)
+      <div class="absolute -top-3.5 left-6 bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded shadow">
+        5. Definition of Done – Versión Final
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2 text-xs">
+        <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl">
+          <h4 class="font-bold text-blue-900 mb-2">DoD Técnico</h4>
+          <p class="text-blue-950 leading-relaxed">
+            • Código revisado por pares (PR).<br>
+            • CI en verde (tests + lint ruff).<br>
+            • Imagen Docker inmutable en GHCR.<br>
+            • Feature Toggle configurado si aplica.<br>
+            • No se rompe funcionalidad existente.
+          </p>
+        </div>
+        <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl">
+          <h4 class="font-bold text-emerald-900 mb-2">DoD de Negocio</h4>
+          <p class="text-emerald-950 leading-relaxed">
+            • Acceptance Criteria cumplidos.<br>
+            • Se puede validar en producción.<br>
+            • PO conoce el estado del Toggle.<br>
+            • Cero impacto en usuarios activos.<br>
+            • Feedback documentado en Review.
+          </p>
+        </div>
+        <div class="bg-purple-50 border border-purple-200 p-4 rounded-xl">
+          <h4 class="font-bold text-purple-900 mb-2">DoD de Despliegue</h4>
+          <p class="text-purple-950 leading-relaxed">
+            • Desplegado automático en Render.<br>
+            • Health check `/api/health` pasando.<br>
+            • Logs y telemetría inicial verificados.<br>
+            • Toggle en el estado acordado (0%/10%/100%).<br>
+            • <strong>Checklist Fase 1: CERRADA ✅</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB 2: TALLER 6 (CASO PAGOS EXPRESS) -->
+  <div id="tab-taller6" class="tab-content hidden max-w-7xl mx-auto space-y-8">
+    
+    <div class="bg-slate-900 text-white p-4 rounded-xl shadow-sm flex justify-between items-center">
+      <div>
+        <h2 class="text-base font-bold">Taller 6: Sprint Review, Retrospective y Liberación Segura</h2>
+        <p class="text-xs text-slate-300">Resolución Oficial del Caso: "Pagos Express ya está en main pero nadie se atreve a activarla"</p>
+      </div>
+      <span class="bg-amber-400 text-gray-950 text-xs px-2.5 py-1 rounded-md font-bold">Caso Práctico Resuelto</span>
+    </div>
+
+    <!-- El Caso Pagos Express -->
+    <div class="frame-border rounded-2xl p-6 relative">
+      <div class="absolute -top-3.5 left-6 bg-rose-700 text-white text-xs font-bold px-3 py-1 rounded shadow">
+        Diagnóstico del Caso: Hechos Críticos
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2 text-xs">
+        <div class="bg-rose-50 border border-rose-200 p-4 rounded-xl text-rose-950 space-y-1.5">
+          <span class="font-bold block text-rose-900">⚠️ Fricciones Identificadas:</span>
+          <div>• Presión comercial del PO para activar el 20% este viernes por campaña de marketing.</div>
+          <div>• El último deploy falló el health check durante 11 minutos.</div>
+          <div>• Existen 3 feature toggles antiguos (> 45 días) sin limpiar.</div>
+          <div>• Se reportó un test flaky que obligó a mantener una rama viva por 4 días.</div>
+          <div>• Cero métricas de conversión o errores de pagos configuradas.</div>
+        </div>
+        <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-emerald-950 space-y-1.5">
+          <span class="font-bold block text-emerald-900">🛡️ Decisión Madura del Equipo:</span>
+          <div>• <strong>NO se activa al 20% este viernes.</strong> Se protege la confianza del pipeline.</div>
+          <div>• La campaña de marketing se pausa unos días con total transparencia al stakeholder.</div>
+          <div>• Se repara el test flaky en &lt; 24h y se eliminan los 3 toggles viejos.</div>
+          <div>• Se activa solo para usuarios internos antes de cualquier tráfico real.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ceremonias Adaptadas y Estrategia de Liberación -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Sprint Review -->
+      <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-2xs flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Ceremonia 1</span>
+          <h3 class="font-bold text-sm text-gray-900 mt-2 mb-2">Sprint Review en CD</h3>
+          <p class="text-xs text-gray-600 leading-relaxed mb-3">
+            Demo en vivo con toggle en <strong>OFF</strong> primero (realidad de producción), y activación temporal en vivo solo para cuentas internas del equipo.
+          </p>
+          <div class="bg-blue-50 p-2.5 rounded text-[11px] text-blue-900 italic">
+            "La feature está desplegada, pero no liberada hasta resolver telemetría y salud del pipeline."
+          </div>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-        
-        <div class="bg-white rounded-xl border-t-4 border-t-blue-500 p-4 border border-gray-200 shadow-2xs">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Issue #2</span>
-            <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Merged a main</span>
-          </div>
-          <h4 class="text-sm font-bold text-gray-900 mb-2">Método resta() detrás de Toggle</h4>
+      <!-- Sprint Retrospective -->
+      <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-2xs flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-bold bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Ceremonia 2</span>
+          <h3 class="font-bold text-sm text-gray-900 mt-2 mb-2">Sprint Retrospective DORA</h3>
           <p class="text-xs text-gray-600 leading-relaxed mb-3">
-            <strong>Como</strong> dev, <strong>quiero</strong> implementar resta en Calculator con toggle apagado (0%), <strong>para</strong> integrarlo a main sin exponer la función antes de tiempo.
+            Foco en salud del pipeline: reparar el test flaky (máxima prioridad), eliminar los 3 toggles antiguos y acordar que 7 deploys seguidos deben pasar health check antes de abrir tráfico.
           </p>
-          <div class="bg-gray-50 p-2.5 rounded text-[11px] text-gray-600 space-y-1">
-            <span class="font-bold block text-gray-700">Criterios de Aceptación:</span>
-            <div>✅ resta() en src/main.py</div>
-            <div>✅ Test pasando en pytest / CI</div>
-            <div>✅ Flag apagado en ConfigCat (0%)</div>
+          <div class="bg-purple-50 p-2.5 rounded text-[11px] text-purple-900 font-bold">
+            3 Acciones concretas asignadas al sprint.
           </div>
         </div>
-
-        <div class="bg-white rounded-xl border-t-4 border-t-amber-500 p-4 border border-gray-200 shadow-2xs">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Issue #3</span>
-            <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">En Backlog</span>
-          </div>
-          <h4 class="text-sm font-bold text-gray-900 mb-2">Frontend con Rollout Interno (10%)</h4>
-          <p class="text-xs text-gray-600 leading-relaxed mb-3">
-            <strong>Como</strong> PO, <strong>quiero</strong> exponer la resta en la UI solo al 10% de usuarios, <strong>para</strong> validar usabilidad y telemetría en producción real.
-          </p>
-          <div class="bg-gray-50 p-2.5 rounded text-[11px] text-gray-600 space-y-1">
-            <span class="font-bold block text-gray-700">Criterios de Aceptación:</span>
-            <div>🔘 UI conectada al endpoint de resta</div>
-            <div>🔘 Regla de segmentación (10% usuarios)</div>
-            <div>🔘 Monitoreo de errores en producción</div>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-xl border-t-4 border-t-purple-500 p-4 border border-gray-200 shadow-2xs">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-bold bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Issue #4</span>
-            <span class="text-[10px] font-semibold text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200">Planificada</span>
-          </div>
-          <h4 class="text-sm font-bold text-gray-900 mb-2">Operaciones completas + Flag al 100%</h4>
-          <p class="text-xs text-gray-600 leading-relaxed mb-3">
-            <strong>Como</strong> usuario, <strong>quiero</strong> multiplicación, división e historial con toggle al 100%, <strong>para</strong> usar la calculadora final validada.
-          </p>
-          <div class="bg-gray-50 p-2.5 rounded text-[11px] text-gray-600 space-y-1">
-            <span class="font-bold block text-gray-700">Criterios de Aceptación:</span>
-            <div>🔘 Todas las operaciones con tests unitarios</div>
-            <div>🔘 Toggle al 100% abierto a todos</div>
-            <div>🔘 Limpieza de deuda técnica del toggle</div>
-          </div>
-        </div>
-
       </div>
 
-      <div class="mt-6 bg-indigo-50 border border-indigo-200 rounded-xl p-4">
-        <h3 class="text-xs font-bold text-indigo-900 uppercase tracking-wide mb-1">
-          Pregunta de cierre: ¿Cómo cambiaría nuestro Sprint Review y Retrospective?
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2 text-xs text-indigo-950 leading-relaxed">
-          <div class="bg-white p-3 rounded-lg border border-indigo-100">
-            <strong>Sprint Review:</strong> Ya no se hacen presentaciones de PowerPoint ni demos locales que fallan; se abre la aplicación real en producción y se activan los Feature Flags en vivo mostrando valor y telemetría real.
+      <!-- Liberación Segura -->
+      <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-2xs flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Estrategia</span>
+          <h3 class="font-bold text-sm text-gray-900 mt-2 mb-2">Rollout Seguro Progresivo</h3>
+          <div class="text-xs text-gray-600 space-y-1 mb-3">
+            <div>1. Dogfooding interno (Día 1-2)</div>
+            <div>2. Canary al 5% con monitoreo 48h (Día 3-4)</div>
+            <div>3. Elevación al 20% si error &lt; 0.5% (Día 5)</div>
+            <div>4. Rollback automático ante anomalías</div>
           </div>
-          <div class="bg-white p-3 rounded-lg border border-indigo-100">
-            <strong>Sprint Retrospective:</strong> Se analiza la velocidad y salud del flujo de ingeniería (métricas DORA): ¿cuánto tardaron los PRs?, ¿cuántas veces falló el CI?, ¿las ramas vivieron menos de 24 horas?
+          <div class="bg-emerald-50 p-2.5 rounded text-[11px] text-emerald-900 font-semibold">
+            Rollback instantáneo en ConfigCat sin re-deploy.
           </div>
         </div>
       </div>
@@ -343,8 +390,80 @@
 
   </div>
 
-  <footer class="max-w-7xl mx-auto mt-8 text-center text-xs text-gray-400 pb-6">
-    Tablero generado para el Taller 3 (Adaptación de Scrum a TBD + Despliegue Continuo) — Repositorio INGENIERO-JUAN/CICD
+  <!-- TAB 3: TALLER 4 (BACKLOG & SLICEADO) -->
+  <div id="tab-taller4" class="tab-content hidden max-w-7xl mx-auto space-y-8">
+    <div class="bg-amber-500 text-white p-4 rounded-xl shadow-sm">
+      <h2 class="text-base font-bold text-gray-950">Taller 4: Backlog y Planificación de Sprints TBD</h2>
+      <p class="text-xs text-gray-900">Salud del backlog, sliceado vertical atómico de la historia #4 y Definition of Ready</p>
+    </div>
+
+    <!-- Re-sliceado de la Historia 4 -->
+    <div class="frame-border rounded-2xl p-6 relative">
+      <div class="absolute -top-3.5 left-6 bg-gray-800 text-white text-xs font-bold px-3 py-1 rounded shadow">
+        Re-sliceado Vertical del Monolito (Issue #4)
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
+        <div class="bg-white p-4 rounded-xl border border-gray-200">
+          <span class="text-xs font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Incremento 1 (PB-004a)</span>
+          <h4 class="font-bold text-sm text-gray-900 mt-2 mb-1">Método multiplicar()</h4>
+          <p class="text-xs text-gray-600 mb-2">≤ 1 día de esfuerzo, toggle al 0%, tests en CI.</p>
+          <div class="text-[11px] text-emerald-700 font-semibold bg-emerald-50 p-2 rounded">Status: Listo para planificar (#9)</div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-gray-200">
+          <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Incremento 2 (PB-004b)</span>
+          <h4 class="font-bold text-sm text-gray-900 mt-2 mb-1">Método dividir() con errores</h4>
+          <p class="text-xs text-gray-600 mb-2">Control de ZeroDivisionError, tests de casos borde en CI.</p>
+          <div class="text-[11px] text-emerald-700 font-semibold bg-emerald-50 p-2 rounded">Status: Listo para planificar (#10)</div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-gray-200">
+          <span class="text-xs font-bold bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Incremento 3 (PB-004c)</span>
+          <h4 class="font-bold text-sm text-gray-900 mt-2 mb-1">Historial & Rollout 100%</h4>
+          <p class="text-xs text-gray-600 mb-2">Registro en memoria de operaciones y subida de flags al 100%.</p>
+          <div class="text-[11px] text-emerald-700 font-semibold bg-emerald-50 p-2 rounded">Status: Listo para planificar (#11)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: DIAGNÓSTICO INICIAL (TALLERES 1 & 2) -->
+  <div id="tab-diagnostico" class="tab-content hidden max-w-7xl mx-auto space-y-8">
+    <div class="bg-blue-800 text-white p-4 rounded-xl shadow-sm">
+      <h2 class="text-base font-bold">Talleres 1 & 2: Diagnóstico Inicial y Roles Adaptados</h2>
+      <p class="text-xs text-blue-200">Compromisos de equipo y flujo TBD</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-4 rounded-xl border border-gray-200">
+        <h4 class="font-bold text-xs uppercase text-gray-500 mb-2">Product Owner</h4>
+        <p class="text-xs text-gray-700 mb-3">Sliceado en lotes pequeños, gestión de flags 0%-100% y validación continua en prod.</p>
+        <div class="sticky-note bg-amber-100 p-2.5 rounded text-xs text-amber-950 font-medium">
+          "Validaré valor con Feature Flags en producción antes de la demo final."
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-gray-200">
+        <h4 class="font-bold text-xs uppercase text-gray-500 mb-2">Developers</h4>
+        <p class="text-xs text-gray-700 mb-3">Ownership de main siempre verde, commits pequeños y ramas &lt; 24 horas.</p>
+        <div class="sticky-note bg-emerald-100 p-2.5 rounded text-xs text-emerald-950 font-medium">
+          "No guardaré código local > 24h; integraré diario con tests y protegeré main."
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-gray-200">
+        <h4 class="font-bold text-xs uppercase text-gray-500 mb-2">Scrum Master</h4>
+        <p class="text-xs text-gray-700 mb-3">Facilitador de integración continua y eliminación de bloqueos en Code Review.</p>
+        <div class="sticky-note bg-blue-100 p-2.5 rounded text-xs text-blue-950 font-medium">
+          "Cuidaré que resolver fallos en main sea la máxima prioridad del equipo."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="max-w-7xl mx-auto mt-12 text-center text-xs text-gray-400 pb-8">
+    Ecosistema DevOps & Trunk-Based Development — INGENIERO-JUAN/CICD (Talleres 1, 2, 3, 4 y 6)
   </footer>
 
 </body>
