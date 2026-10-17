@@ -249,3 +249,161 @@ Una historia **solo puede ser admitida en el Sprint Backlog** si cumple la total
 2. **Acción 2:** Ningún Pull Request superará las 250 líneas de código para garantizar revisiones en menos de 2 horas.
 3. **¿Qué cambia en nuestra próxima Planning?:** Dejamos de estimar puntos de historia abstractos para enfocarnos en el **calendario de integraciones diarias a `main`** desde el primer día del Sprint.
 
+---
+
+## 6. Taller 3: CI/CD, Automatización de Pruebas y Cierre de Pendientes (Render + ConfigCat + DoD Final)
+
+### 6.1 Diagnóstico del Pipeline Actual (Bloque 1)
+```text
+Push / PR ➔ CI (tests + lint + build) ➔ Code Review ➔ Merge a main ➔ Imagen Docker (GHCR) ➔ Auto-deploy (Render) ➔ Feature Toggle (ConfigCat)
+```
+
+#### Semáforo del Pipeline
+* 🟢 **Ya funciona bien:**
+  * CI ultrarrápido (< 1 min) en GitHub Actions (`pytest` + `ruff`).
+  * Construcción y publicación automática de imágenes Docker inmutables en GHCR con cada push a `main`.
+  * Integración con SDK de ConfigCat en Python (`configcat-client`) con fallback seguro.
+* 🟡 **Parcial / Manual:**
+  * Auto-deploy a Render vía webhook disparado tras el push exitoso a GHCR.
+  * Gestión manual de toggles en el dashboard de ConfigCat.
+* 🔴 **Falta / Riesgo mitigado:**
+  * Despliegues de código incompleto sin protección (resuelto 100% mediante Feature Flags al 0%).
+
+#### Preguntas Clave de Diagnóstico
+1. **¿Cuánto tarda el CI actualmente?:** Menos de 45 segundos en GitHub Actions.
+2. **¿Qué tan confiable es?:** 100% confiable, sin tests flaky y con entorno virtual estandarizado.
+3. **¿Quién tiene que hacer algo manual después del merge a main?:** Nadie. El pipeline compila, etiqueta y despliega en automático.
+4. **¿Cuál es el mayor miedo al desplegar?:** Romper la experiencia de usuarios existentes (eliminado al aislar cambios tras toggles).
+
+---
+
+### 6.2 Automatización de Pruebas y Robustez del CI (Bloque 2)
+
+#### Mínimo Viable de Calidad
+* **Tests que deben pasar sí o sí:**
+  * `test_sums_2_numbers()`: Validación de suma básica.
+  * `test_resta_2_numbers()`: Validación de resta básica.
+  * `test_health_endpoint()`: Endpoint `/api/health` retorna HTTP 200 `{"status": "ok"}`.
+  * `test_flags_endpoint()`: Endpoint `/api/flags` responde con el estado de las flags.
+  * `test_resta_endpoint_disabled()`: Retorna HTTP 403 cuando el toggle está apagado.
+  * `test_resta_endpoint_enabled()`: Retorna HTTP 200 con el cálculo correcto cuando el toggle está activo.
+* **Tiempo máximo aceptable del CI:** 1 minuto.
+
+#### Acuerdo de Calidad del Equipo
+> **"Si el CI está rojo ➔ se prioriza ponerlo verde antes de seguir con cualquier nueva feature. ¿Acordado? SÍ."**
+
+---
+
+### 6.3 Auto-deploy a Render (Bloque 3)
+
+#### Checklist de Configuración
+* [x] Repositorio conectado a Render (`INGENIERO-JUAN/CICD`).
+* [x] Branch objetivo: `main`.
+* [x] Auto-Deploy activado.
+* [x] Build Command: `pip install -r src/requirements.txt` (o Docker container deployment).
+* [x] Start Command: `python src/main.py` (expone `PORT` dinámico de Render).
+* [x] Variables de entorno cargadas: `CONFIGCAT_SDK_KEY`, `PORT=8080`.
+* [x] Health Check Path definido: `/api/health`.
+* [x] Primer deploy automático verificado.
+
+#### Decisiones de Despliegue del Equipo
+* **¿Desplegamos directo a Producción o primero a Staging?:** Directo a Producción con **Feature Toggles** activos en 0% (práctica estándar en TBD para eliminar la fricción de múltiples entornos).
+* **¿Quién recibe la notificación si falla el deploy?:** Notificación automática por email y webhook al equipo de desarrollo en GitHub.
+
+---
+
+### 6.4 Feature Toggle con ConfigCat (Bloque 4)
+
+#### Configuración Oficial
+* **Proyecto ConfigCat:** `CICD-Calculator`.
+* **SDK Integrado:** Sí (`configcat-client` en `src/feature_flags.py`).
+* **API Key en variable de entorno:** Sí (`CONFIGCAT_SDK_KEY` con fallback offline seguro para tests).
+
+#### Primer Toggle Creado
+* **Nombre del Toggle:** `feature-resta` (`isRestaEnabled`).
+* **Descripción:** Habilita el cálculo y visibilidad del endpoint de resta en la calculadora web.
+* **Historia relacionada:** [#2](https://github.com/INGENIERO-JUAN/CICD/issues/2).
+* **Estado inicial:** `OFF` (`0%`).
+
+#### Demostración en Vivo
+* **Toggle OFF:** Endpoint `/api/resta` retorna HTTP 403 `{"error": "Operación no disponible"}`; en la UI el botón se oculta o deshabilita.
+* **Toggle ON:** Endpoint `/api/resta` calcula inmediatamente la diferencia y responde HTTP 200 `{"result": a - b}` en vivo sin necesidad de re-desplegar.
+
+#### Acuerdos de Gobernanza de Toggles
+* **¿Quién puede activar/desactivar toggles en producción?:** El Product Owner con validación del Developer líder.
+* **¿Todo toggle debe tener fecha de limpieza?:** **SÍ**, máximo 1 sprint después de alcanzar el 100% de rollout.
+
+---
+
+### 6.5 Definition of Done (DoD) — Versión Final (Bloque 5)
+
+| DoD Técnico | DoD de Negocio | DoD de Despliegue |
+| :--- | :--- | :--- |
+| • Código revisado por pares (PR) | • Acceptance Criteria cumplidos | • Desplegado automáticamente en Render |
+| • CI en verde (tests + linter `ruff`) | • Validado en producción vía feature flag | • Health check `/api/health` en 200 OK |
+| • Imagen Docker inmutable en GHCR | • Product Owner conoce el estado del Toggle | • Logs y telemetría inicial verificados |
+| • Feature Toggle configurado al 0% | • Cero impacto en usuarios actuales | • Toggle en el porcentaje acordado |
+| • No se rompe funcionalidad existente | • Feedback documentado en Sprint Review | • Checklist Fase 1: **CERRADA ✅** |
+
+---
+
+### 6.6 Cierre del Taller 3
+* **Frase del equipo:** *"A partir de mañana desplegamos con total tranquilidad a producción porque desacoplamos el despliegue técnico de la activación comercial con Feature Flags."*
+* **Acciones de seguimiento:**
+  1. Monitorear los próximos 5 deploys automáticos en Render.
+  2. Implementar los toggles para las historias sliceadas #9 y #10.
+  3. Revisar la salud de los flags en la siguiente Retrospective.
+
+---
+
+## 7. Taller 6: Sprint Review, Retrospective y Liberación Segura en Continuous Deployment
+
+### 7.1 Resolución del Caso de Estudio: "Pagos Express ya está en main pero nadie se atreve a activarla"
+
+#### Contexto del Problema
+* Historia "Pagos Express con un solo clic" integrada a `main` hace 9 días bajo el flag `pagos-express-v1` (OFF al 0%).
+* Presión comercial del PO para activar al 20% este viernes por campaña de marketing.
+* El último deploy falló el health check durante 11 minutos; hay 3 toggles viejos abandonados (> 45 días); se reportó un test flaky en CI; y no hay métricas de conversión/error.
+
+#### Decisiones Maduras del Equipo (Resolución Oficial)
+
+1. **En el Sprint Review:**
+   * Se realiza la demo técnica con el toggle en **OFF** primero (reflejando la realidad de producción).
+   * Se activa temporalmente en vivo **únicamente para el usuario de prueba del equipo** para demostrar el flujo funcional a los stakeholders.
+   * **Comunicación transparente del PO:** *"La funcionalidad está técnicamente implementada y desplegada, pero no se liberará al 20% este viernes. La campaña de marketing se pausará unos días hasta estabilizar el pipeline y configurar la telemetría de pagos."*
+   * **Acuerdo:** No ceder ante fechas arbitrarias si se pone en riesgo la estabilidad del negocio.
+
+2. **En la Sprint Retrospective (Acciones Concretas):**
+   * **Acción 1 (P1):** Reparar o eliminar el test flaky en las próximas 24 horas; regla de tolerancia cero a tests inestables.
+   * **Acción 2 (P2):** Configurar observabilidad básica (tasa de error HTTP 5xx y conversiones de pago) antes de cualquier apertura de tráfico.
+   * **Acción 3 (P3):** Limpieza inmediata de los 3 feature toggles antiguos (> 45 días) para eliminar deuda técnica.
+   * **Regla acordada:** No se activará ningún toggle a clientes si los últimos 7 despliegues automáticos no han tenido health checks 100% exitosos.
+
+3. **Estrategia de Liberación Segura (Safe Release Strategy):**
+   * **Fase 1 (Día 1-2):** Arreglo de test flaky + limpieza de toggles viejos + observabilidad lista.
+   * **Fase 2 (Día 3):** Activación interna (*Dogfooding*) solo para empleados / cuentas del equipo.
+   * **Fase 3 (Día 5):** Apertura canary al **5%** durante 48 horas de monitoreo estricto.
+   * **Fase 4 (Día 7):** Elevación al **20%** si no hay alertas.
+   * **Criterio de Rollback Automático:** Si los errores en pagos superan el **0.5%**, el toggle se apaga inmediatamente en ConfigCat sin necesidad de re-desplegar ni tocar Git.
+
+---
+
+### 7.2 Adaptación de Ceremonias en Continuous Deployment
+
+| Ceremonia | Enfoque Clásico | Adaptación a Continuous Deployment |
+| :--- | :--- | :--- |
+| **Sprint Review** | Demostración de maquetas o código local acumulado al final. | Demostración en vivo en producción activando/desactivando Feature Flags y revisando métricas reales de valor. |
+| **Sprint Retrospective** | Dinámica genérica sobre personas y tareas del sprint. | Inspección de métricas de ingeniería (DORA): Frecuencia de deploys, Lead Time, Change Failure Rate, MTTR y salud de toggles. |
+
+#### Tres Acciones de Mejora para la Próxima Retrospective:
+1. Mantener el tiempo de CI por debajo de 60 segundos.
+2. Cero ramas con vida superior a 24 horas.
+3. Todo toggle debe contar con fecha de caducidad en el backlog.
+
+---
+
+### 7.3 Ronda Final y Cierre
+> **"En una frase: ¿Qué cambia en nuestro próximo Review y Retro después de este taller?"**  
+> *"Dejamos de temerle al despliegue porque el software ya vive en producción desde el primer día, y transformamos las reuniones en espacios de validación de valor real y optimización del flujo continuo."*
+
+

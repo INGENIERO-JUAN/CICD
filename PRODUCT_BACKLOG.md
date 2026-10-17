@@ -31,14 +31,14 @@ Documento vivo del **Product Backlog** adaptado a Trunk-Based Development: histo
 | ID | Prioridad | Issue GitHub | Título | Estado TBD | Estado |
 | :---: | :---: | :---: | :--- | :---: | :--- |
 | PB-001 | — | — | `suma()` en Calculator (línea base) | 🟢 | Hecho |
-| PB-002 | 1 | [#2](https://github.com/INGENIERO-JUAN/CICD/issues/2) | Método `resta()` con toggle apagado (0%) | 🟢 | En progreso |
+| PB-002 | 1 | [#2](https://github.com/INGENIERO-JUAN/CICD/issues/2) | Método `resta()` con toggle apagado (0%) | 🟢 | Hecho |
 | PB-003 | 2 | [#3](https://github.com/INGENIERO-JUAN/CICD/issues/3) | Exponer `resta()` en frontend (rollout 10%) | 🟢 | En progreso |
 | PB-004 | — | [#4](https://github.com/INGENIERO-JUAN/CICD/issues/4) | Epic: operaciones avanzadas + 100% | 🟢 | Re-sliceado |
 | PB-004a | 3 | [#9](https://github.com/INGENIERO-JUAN/CICD/issues/9) | Método `multiplicar()` con toggle 0% | 🟢 | Listo |
 | PB-004b | 4 | [#10](https://github.com/INGENIERO-JUAN/CICD/issues/10) | Método `dividir()` con manejo de errores (toggle 0%) | 🟢 | Listo |
 | PB-004c | 5 | [#11](https://github.com/INGENIERO-JUAN/CICD/issues/11) | Historial en memoria + elevación toggles al 100% | 🟢 | Listo |
-| PB-005 | 6 | [#12](https://github.com/INGENIERO-JUAN/CICD/issues/12) | Integración ConfigCat SDK en Python | 🟢 | En progreso |
-| PB-006 | 7 | [#13](https://github.com/INGENIERO-JUAN/CICD/issues/13) | Webhook CD hacia Render (post GHCR) | 🟡 | Backlog |
+| PB-005 | 6 | [#12](https://github.com/INGENIERO-JUAN/CICD/issues/12) | Integración ConfigCat SDK en Python | 🟢 | Hecho |
+| PB-006 | 7 | [#13](https://github.com/INGENIERO-JUAN/CICD/issues/13) | Webhook CD hacia Render (post GHCR) | 🟡 | En progreso |
 | PB-007 | 8 | [#14](https://github.com/INGENIERO-JUAN/CICD/issues/14) | Métricas DORA (deployment frequency, lead time) | 🟡 | Backlog |
 
 ---
