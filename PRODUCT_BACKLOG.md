@@ -56,7 +56,7 @@ Documento vivo del **Product Backlog** adaptado a Trunk-Based Development: histo
 
 ### PB-002 — `resta()` backend detrás del toggle
 
-- **Issue:** [#2](https://github.com/INGENIERO-JUAN/CICD/issues/2) — Project: **In Progress**
+- **Issue:** [#2](https://github.com/INGENIERO-JUAN/CICD/issues/2) — Project: **Done**
 - **Como** desarrollador, **quiero** implementar `resta()` con feature flag apagado, **para** integrar la lógica a `main` sin exponerla aún.
 - **AC en producción:**
   1. Método `resta(a, b)` en `src/main.py`.
